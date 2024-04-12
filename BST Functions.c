@@ -58,8 +58,8 @@ void preOrder(Node *root)
     if(root != NULL)
     {
         printf("%d\t", root->data);
-        inOrder(root->left);
-        inOrder(root->right);
+        preOrder(root->left);
+        preOrder(root->right);
     }
 }
 
@@ -86,7 +86,7 @@ void main()
     Node *root = NULL;
     do
     {
-        printf("\n1.Create\n2.insert\n3.Display Inorder\n4.Count leaf Node\n");
+        printf("\n1.Create\n2.insert\n3.Display Inorder\n4.Count leaf Node\n5.Total Nodes\n");
         printf("Enter Choice: ");
         scanf("%d", &ch);
         
@@ -106,10 +106,12 @@ void main()
             case 4:
                     printf("Total leaf Nodes are: %d\n", lNode(root));
                     break;
+            case 5: printf("Total Nodes are: %d\n", tNode(root));
+                    break;
                     
             
             default: printf("Wrong Choice..");
         }
         
-    }while(ch<=4);
+    }while(ch<=5);
 }
