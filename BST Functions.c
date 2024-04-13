@@ -8,6 +8,8 @@ typedef struct Node
 }Node;
 
 
+
+//create Node function
 Node *createNode(int data)
 {
     Node *newNode = malloc(sizeof(Node));
@@ -18,7 +20,7 @@ Node *createNode(int data)
 }
 
 
-
+//inserting element in BST
 Node *insert(Node *root, int data)
 {
     if(root == NULL)
@@ -32,6 +34,7 @@ Node *insert(Node *root, int data)
 }
 
 
+//create BST function 
 Node *create(Node *root)
 {
     int n;
@@ -52,7 +55,7 @@ Node *create(Node *root)
 }
 
 
-
+//preorder traversal data
 void preOrder(Node *root)
 {
     if(root != NULL)
@@ -64,6 +67,7 @@ void preOrder(Node *root)
 }
 
 
+//calculating total Nodes in BST
 int tNode(Node *T)
 {
     if(T == NULL)
@@ -72,6 +76,7 @@ int tNode(Node *T)
 }
 
 
+//calculating leaf node in BST
 int lNode(Node *root)
 {
     if(root->left == NULL && root->right == NULL)
@@ -80,38 +85,45 @@ int lNode(Node *root)
 }
 
 
-void main()
+//printig level data
+void levelPrint(Node *root, int level)
 {
-    int ch;
-    Node *root = NULL;
-    do
-    {
-        printf("\n1.Create\n2.insert\n3.Display Inorder\n4.Count leaf Node\n5.Total Nodes\n");
-        printf("Enter Choice: ");
-        scanf("%d", &ch);
-        
-        switch(ch)
+    if(root == NULL)
+        return;
+    if(level == 1)
+        printf("%d\t",root->data);
+    else if(level > 1)
         {
-            case 1: root = create(root);
-                    break;
-            case 2: int data;
-                    printf("\nEnter elemet to insert: ");
-                    scanf("%d", &data);
-                    insert(root, data);
-                    break;
-            
-            case 3: inOrder(root);
-                    break;
-                    
-            case 4:
-                    printf("Total leaf Nodes are: %d\n", lNode(root));
-                    break;
-            case 5: printf("Total Nodes are: %d\n", tNode(root));
-                    break;
-                    
-            
-            default: printf("Wrong Choice..");
+            levelPrint(root->left,level-1);
+            levelPrint(root->right, level-1);
         }
+}
+
+
+//calculating Height of BST
+int height(Node *root)
+{
+    if(root == NULL)
+        return 0;
+    else
+    {
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
         
-    }while(ch<=5);
+        if(leftHeight > rightHeight)
+            return leftHeight +1;
+        else
+            return rightHeight+1;
+    }
+}
+
+//printing level wise data in BST
+void print(Node *root)
+{
+    int h = height(root);
+    for(int i=1; i<=h; i++)
+    {
+        printf("Level %d: ", i);
+        levelPrint(root,i);
+    }
 }
